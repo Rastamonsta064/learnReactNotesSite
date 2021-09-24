@@ -1,16 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import Form from "./Form";
 import NotesList from "./NotesList";
+import {useDispatch, useSelector} from "react-redux";
+import {addNote, deleteNote, getNotes} from "../redux/actions";
 
 const Main = () => {
+    const dispatch = useDispatch();
 
-    const [notes,setNotes] = useState([{title:"Первая заметка", note:"Сам текст первой заметки"},
-        {title:"Вторая заметка", note:"Сам текст второй заметки"}]);
+    useEffect(()=>{
+        dispatch(getNotes());
+    },[]);
+
+    const notes = useSelector(state => state.notes);
 
     const removeNotes = (id) => {
-        let temp = notes;
-        temp.splice(id,1);
-        setNotes([...temp]);
+        dispatch(deleteNote(id));
+        dispatch(getNotes());
+    }
+
+    const saveHandler = (newNote) =>{
+        dispatch(addNote(newNote));
     }
 
     return (
@@ -18,7 +27,7 @@ const Main = () => {
             <div className="container bg-danger my-2 p-2 align-content-center rounded">
                 <div className="row">
                     <div className="col text-center">
-                        <h2 className="text-light">******ЗАМЕТКИ******</h2>
+                        <h2 className="text-light"><i className="bi bi-journal-bookmark-fill"></i> Заметки</h2>
                     </div>
                 </div>
             </div>
@@ -26,17 +35,16 @@ const Main = () => {
                 <div className="row">
                     <div className="col text-center">
                         <h2 className="text-light">Заполни форму и нажми сохранить!</h2>
+                        <p className="text-light">Все заметки сохраняются в базу данных Mondo DB Atlas</p>
                     </div>
-                    <div className="row">
-                        <div className="col-6">
-                            <Form  setNotes={setNotes} notes={notes}/>
+                    <div className="row m-0">
+                        <div className="col-4">
+                            <Form saveHandler={saveHandler} notes={notes}/>
                         </div>
-                        <div className="col-6">
+                        <div className="col-8">
                             <NotesList removeNotes={removeNotes} notes={notes}/>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 

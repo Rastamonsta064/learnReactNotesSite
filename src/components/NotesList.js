@@ -6,8 +6,8 @@ const NotesList = ({notes, removeNotes}) => {
     return (
         <div>
             <ul>
-                {notes.map((note, index) =>
-                    <Note note={note} id={index} removeNotes={removeNotes}/>
+                {notes.map((note) =>
+                    <Note note={note} key={note._id} id={note._id} removeNotes={removeNotes}/>
                 )}
             </ul>
         </div>
