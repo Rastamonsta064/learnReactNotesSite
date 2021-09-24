@@ -1,4 +1,5 @@
-export const url = "http://localhost:5000/notes/";
+export const url = "https://server-for-notes.herokuapp.com/notes/";
+export const localUrl =  "http://localhost:5000/notes/";
 export const SET_NOTES = "SET_NOTES";
 export const DELL_NOTE = "DELL_NOTE";
 
@@ -80,6 +81,6 @@ export const getNotes = () => {
                 }
             })
             .then(notes => dispatch(setNotes(notes)))
-            .catch(error => console.log(error.message()));
+            .catch(error => console.log(error.message));
     }
 }
