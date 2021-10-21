@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/learnReactNotesSite/static/js/main.42304628.chunk.js",
-    "main.js.map": "/learnReactNotesSite/static/js/main.42304628.chunk.js.map",
+    "main.js": "/learnReactNotesSite/static/js/main.5b2653ee.chunk.js",
+    "main.js.map": "/learnReactNotesSite/static/js/main.5b2653ee.chunk.js.map",
     "runtime-main.js": "/learnReactNotesSite/static/js/runtime-main.4f8d9eef.js",
     "runtime-main.js.map": "/learnReactNotesSite/static/js/runtime-main.4f8d9eef.js.map",
     "static/css/2.f2512455.chunk.css": "/learnReactNotesSite/static/css/2.f2512455.chunk.css",
-    "static/js/2.b085828e.chunk.js": "/learnReactNotesSite/static/js/2.b085828e.chunk.js",
-    "static/js/2.b085828e.chunk.js.map": "/learnReactNotesSite/static/js/2.b085828e.chunk.js.map",
+    "static/js/2.7844a6de.chunk.js": "/learnReactNotesSite/static/js/2.7844a6de.chunk.js",
+    "static/js/2.7844a6de.chunk.js.map": "/learnReactNotesSite/static/js/2.7844a6de.chunk.js.map",
     "index.html": "/learnReactNotesSite/index.html",
     "static/css/2.f2512455.chunk.css.map": "/learnReactNotesSite/static/css/2.f2512455.chunk.css.map",
-    "static/js/2.b085828e.chunk.js.LICENSE.txt": "/learnReactNotesSite/static/js/2.b085828e.chunk.js.LICENSE.txt"
+    "static/js/2.7844a6de.chunk.js.LICENSE.txt": "/learnReactNotesSite/static/js/2.7844a6de.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4f8d9eef.js",
     "static/css/2.f2512455.chunk.css",
-    "static/js/2.b085828e.chunk.js",
-    "static/js/main.42304628.chunk.js"
+    "static/js/2.7844a6de.chunk.js",
+    "static/js/main.5b2653ee.chunk.js"
   ]
 }
