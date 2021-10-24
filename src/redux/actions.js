@@ -79,7 +79,7 @@ export const deleteNote = (id) => {
 export const getNotes = () => {
     return (dispatch,getState) => {
         const skip = getState().loadedNotes;
-        fetch(url+"skip="+skip, {method: "GET"})
+        fetch(url+"?skip="+skip, {method: "GET"})
             .then(response => {
                 if (response.ok) {
                     return response.json();
