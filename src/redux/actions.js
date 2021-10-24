@@ -79,13 +79,7 @@ export const deleteNote = (id) => {
 export const getNotes = () => {
     return (dispatch,getState) => {
         const skip = Number(getState().loadedNotes);
-        fetch(url+"?skip="+skip, {
-            method: "GET",
-            headers:{
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'https://server-for-notes.herokuapp.com/'
-            }
-        })
+        fetch(url+"?skip="+skip, {method: "GET"})
             .then(response => {
                 if (response.ok) {
                     return response.json();
