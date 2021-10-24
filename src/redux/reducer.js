@@ -1,7 +1,8 @@
-import {DELL_NOTE, SET_NOTES} from "./actions";
+import {DELL_NOTE, SET_NOTES, UPDATE_NOTES_NUMBER} from "./actions";
 
 const initialState = {
-    notes: []
+    notes: [],
+    loadedNotes:0
 };
 
 export const reducer = (state = initialState, action) => {
@@ -10,6 +11,8 @@ export const reducer = (state = initialState, action) => {
             return [...state, ...action.payload];
         case DELL_NOTE:
             return {...state, notes: state.notes.filter(note => note._id !== action.payload)};
+        case UPDATE_NOTES_NUMBER:
+            return {...state, loadedNotes: action.payload}
         default:
             return state;
     }

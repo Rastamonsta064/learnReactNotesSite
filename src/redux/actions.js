@@ -2,6 +2,7 @@ export const url = "https://server-for-notes.herokuapp.com/notes/";
 export const localUrl =  "http://localhost:5000/notes/";
 export const SET_NOTES = "SET_NOTES";
 export const DELL_NOTE = "DELL_NOTE";
+export const UPDATE_NOTES_NUMBER = "UPDATE_NOTES_NUMBER";
 
 
 export const setNotes = (notes) => ({
@@ -12,6 +13,11 @@ export const setNotes = (notes) => ({
 export const dellNote = (id) => ({
     type: DELL_NOTE,
     payload: id
+})
+
+export const updateNotesNumber = (newNumber) => ({
+    type: UPDATE_NOTES_NUMBER,
+    payload: newNumber
 })
 
 export const addNote = (newNote) => {
@@ -71,8 +77,9 @@ export const deleteNote = (id) => {
 }
 
 export const getNotes = () => {
-    return (dispatch) => {
-        fetch(url, {method: "GET"})
+    return (dispatch,getState) => {
+        const skip = getState().loadedNotes;
+        fetch(url+"skip="+skip, {method: "GET"})
             .then(response => {
                 if (response.ok) {
                     return response.json();

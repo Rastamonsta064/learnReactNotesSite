@@ -1,14 +1,24 @@
-import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
-import {updateNote} from "../redux/actions";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {getNotes, updateNote, updateNotesNumber} from "../redux/actions";
 
-const Note = ({removeNotes, note, id}) => {
+const Note = ({removeNotes, note, id, index}) => {
 
     const [isEdit, setIsEdit] = useState(false);
 
     const [editedNote, setEditedNote] = useState({noteTitle: note.noteTitle, noteBody: note.noteBody});
 
     const dispatch = useDispatch();
+
+  const loadedNotes = useSelector(state => state.loadedNotes);
+
+
+    useEffect(()=> {
+        if(index === loadedNotes){
+            dispatch(updateNotesNumber(loadedNotes + 3));
+            dispatch(getNotes());
+        }
+    },[])
 
     const saveEditedNoteHandler = () => {
         if (editedNote.noteTitle && editedNote.noteTitle) {

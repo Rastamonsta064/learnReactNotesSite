@@ -10,7 +10,6 @@ const Main = () => {
     useEffect(() => {
         dispatch(getNotes());
     }, []);
-
     const notes = useSelector(state => state.notes);
 
     const removeNotes = (id) => {
