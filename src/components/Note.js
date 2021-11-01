@@ -1,31 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getNotes, updateNote, updateNotesNumber} from "../redux/actions";
+import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
+import {updateNote} from "../redux/actions";
 
-const Note = ({removeNotes, note, id, index}) => {
+const Note = ({removeNotes, note, id}) => {
 
     const [isEdit, setIsEdit] = useState(false);
-
     const [editedNote, setEditedNote] = useState({noteTitle: note.noteTitle, noteBody: note.noteBody});
-
     const dispatch = useDispatch();
-
-  const loadedNotes = useSelector(state => state.loadedNotes);
-
-
-    useEffect(()=> {
-        if(index === loadedNotes){
-            dispatch(updateNotesNumber(loadedNotes + 3));
-            dispatch(getNotes());
-        }
-    },[])
 
     const saveEditedNoteHandler = () => {
         if (editedNote.noteTitle && editedNote.noteTitle) {
             dispatch(updateNote(id, editedNote));
             setIsEdit(false);
         }
-
     }
 
     switch (isEdit) {
@@ -86,10 +73,9 @@ const Note = ({removeNotes, note, id, index}) => {
                             </button>
                         </div>
                     </div>
-
-
                 </li>
             );
+        default: return(<div className="bg-warning rounded m-2 p-2 text-center">Loading...</div>)
     }
 };
 

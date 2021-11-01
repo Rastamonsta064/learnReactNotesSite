@@ -1,8 +1,9 @@
 export const url = "https://server-for-notes.herokuapp.com/notes/";
-export const localUrl =  "http://localhost:5000/notes/";
+export const localUrl = "http://localhost:5000/notes/";
 export const SET_NOTES = "SET_NOTES";
 export const DELL_NOTE = "DELL_NOTE";
 export const UPDATE_NOTES_NUMBER = "UPDATE_NOTES_NUMBER";
+export const HAS_MORE = "HAS_MORE";
 
 
 export const setNotes = (notes) => ({
@@ -19,6 +20,11 @@ export const updateNotesNumber = (newNumber) => ({
     type: UPDATE_NOTES_NUMBER,
     payload: newNumber
 })
+
+export const serverHasMoreAction = () => ({
+    type: HAS_MORE
+})
+
 
 export const addNote = (newNote) => {
     return (dispatch) => {
@@ -77,9 +83,9 @@ export const deleteNote = (id) => {
 }
 
 export const getNotes = () => {
-    return (dispatch,getState) => {
+    return (dispatch, getState) => {
         const skip = Number(getState().loadedNotes);
-        fetch(url+"?skip="+skip, {method: "GET"})
+        fetch(url + "?skip=" + skip, {method: "GET"})
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -87,7 +93,13 @@ export const getNotes = () => {
                     throw new Error(response.status.toString());
                 }
             })
-            .then(notes => dispatch(setNotes(notes)))
+            .then(notes => {
+                dispatch(setNotes(notes));
+                dispatch(updateNotesNumber(skip + notes.length));
+                if (!notes.length) {
+                    dispatch(serverHasMoreAction());
+                }
+            })
             .catch(error => console.log(error.message));
     }
 }

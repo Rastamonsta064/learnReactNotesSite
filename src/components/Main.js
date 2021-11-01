@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Form from "./Form";
 import NotesList from "./NotesList";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,10 +6,6 @@ import {addNote, deleteNote, getNotes} from "../redux/actions";
 
 const Main = () => {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getNotes());
-    }, []);
     const notes = useSelector(state => state.notes);
 
     const removeNotes = (id) => {
@@ -19,11 +15,6 @@ const Main = () => {
 
     const saveHandler = (newNote) => {
         dispatch(addNote(newNote));
-    }
-
-    const loadMoreHandler = () => {
-        dispatch(getNotes());
-
     }
 
     return (
@@ -47,7 +38,6 @@ const Main = () => {
                         </div>
                         <div className="col-8 text-center">
                             <NotesList removeNotes={removeNotes} notes={notes}/>
-                            <button className="btn btn-outline-light" onClick={loadMoreHandler}>ЗАГРУЗИТЬ ЕЩЁ</button>
                         </div>
                     </div>
                 </div>
