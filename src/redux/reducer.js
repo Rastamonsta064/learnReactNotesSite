@@ -1,4 +1,4 @@
-import {DELL_NOTE, HAS_MORE, SET_NOTES, UPDATE_NOTES_NUMBER} from "./actions";
+import {CLEAR, DELL_NOTE, HAS_MORE, SET_NOTES, UPDATE_NOTES_NUMBER} from "./actions";
 
 const initialState = {
     notes: [],
@@ -16,6 +16,8 @@ export const reducer = (state = initialState, action) => {
             return {...state, loadedNotes: action.payload};
         case HAS_MORE:
             return {...state, serverHasMore: false};
+        case CLEAR:
+            return initialState;
         default:
             return state;
     }

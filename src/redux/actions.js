@@ -4,6 +4,7 @@ export const SET_NOTES = "SET_NOTES";
 export const DELL_NOTE = "DELL_NOTE";
 export const UPDATE_NOTES_NUMBER = "UPDATE_NOTES_NUMBER";
 export const HAS_MORE = "HAS_MORE";
+export const CLEAR = "CLEAR";
 
 
 export const setNotes = (notes) => ({
@@ -23,6 +24,10 @@ export const updateNotesNumber = (newNumber) => ({
 
 export const serverHasMoreAction = () => ({
     type: HAS_MORE
+})
+
+export const clearState = () => ({
+    type: CLEAR
 })
 
 
@@ -103,3 +108,27 @@ export const getNotes = () => {
             .catch(error => console.log(error.message));
     }
 }
+
+export const getNotesSearch = (query) => {
+    return (dispatch, getState) => {
+        const skip = Number(getState().loadedNotes);
+        fetch(url+"search/" + query + "?skip=" + skip, {method: "GET"})
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(response.status.toString());
+                }
+            })
+            .then(notes => {
+                dispatch(setNotes(notes));
+                dispatch(updateNotesNumber(skip + notes.length));
+                if (!notes.length) {
+                    dispatch(serverHasMoreAction());
+                }
+            })
+            .catch(error => console.log(error.message));
+
+    }
+}
+

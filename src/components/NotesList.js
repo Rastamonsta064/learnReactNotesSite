@@ -1,23 +1,51 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Note from "./Note";
 import useOnScreen from "../hooks/useOnScreen";
-import {getNotes} from "../redux/actions";
+import {clearState, getNotes, getNotesSearch} from "../redux/actions";
 import {useDispatch, useSelector} from "react-redux";
+import FilterBar from "./FilterBar";
 
 const NotesList = ({notes, removeNotes}) => {
     const [setRef, visible] = useOnScreen();
     const dispatch = useDispatch();
     const hasMore = useSelector(state => state.serverHasMore);
 
+    const [keyword, setKeyword] = useState("");
+    const [searchRes, setSearchRes] = useState(false);
+
+    const clearSearch = () => {
+        setKeyword("");
+        setSearchRes(false);
+        dispatch(clearState());
+    }
+
+    const searchHandler = () => {
+        if (keyword) {
+            setSearchRes(true);
+            dispatch(clearState());
+        }
+    }
+
     useEffect(() => {
         if (visible) {
-            dispatch(getNotes());
+            if (!searchRes) {
+                dispatch(getNotes());
+            } else {
+                dispatch(getNotesSearch(keyword));
+            }
         }
-    },[visible,dispatch]);
+        // eslint-disable-next-line
+    }, [visible, searchRes, dispatch]);
 
     return (
         <div>
             <ul>
+                <FilterBar
+                    searchHandler={searchHandler}
+                    keyword={keyword}
+                    setKeyword={setKeyword}
+                    clearSearch={clearSearch}
+                />
                 {notes.map((note, index) => {
                         return <Note
                             note={note}
